@@ -1,6 +1,6 @@
 {
   "name": "@open-monordo/n8n-nodes-intercom",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Intercom n8n",
   "license": "MIT",
   "private": false,

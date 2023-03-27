@@ -73,7 +73,7 @@ export const leadFields: INodeProperties[] = [
 				description: 'Automatically generated identifier for the Lead',
 			},
 		],
-		default: '',
+		default: 'id',
 	},
 	{
 		displayName: 'Value',
@@ -125,7 +125,7 @@ export const leadFields: INodeProperties[] = [
 				description: 'Phone representing the Lead',
 			},
 		],
-		default: '',
+		default: 'email',
 		description: 'The property to select the lead by',
 	},
 	{
@@ -172,7 +172,6 @@ export const leadFields: INodeProperties[] = [
 		},
 		typeOptions: {
 			minValue: 1,
-			maxValue: 60,
 		},
 		default: 50,
 		description: 'Max number of results to return',

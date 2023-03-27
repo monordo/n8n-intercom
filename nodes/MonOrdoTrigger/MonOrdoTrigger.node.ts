@@ -85,7 +85,7 @@ export class MonOrdoTrigger implements INodeType {
 		group: ['trigger', 'MonOrdo'],
 		version: 1,
 		// subtitle:
-			// 'MonOrdo backend trigger node. This node will listen to events from the MonOrdo backend and will trigger the workflow when the event occurs.',
+		// 'MonOrdo backend trigger node. This node will listen to events from the MonOrdo backend and will trigger the workflow when the event occurs.',
 		description: 'Starts the workflow when MonOrdo events occur',
 		defaults: {
 			name: 'MonOrdo Trigger',
@@ -112,38 +112,129 @@ export class MonOrdoTrigger implements INodeType {
 				name: 'listen',
 				type: 'multiOptions',
 				default: [],
-        options: [
-          { name: 'account.created', value: 'CREATED_ACCOUNT', default: true },
-          { name: 'account.updated', value: 'UPDATED_ACCOUNT' },
-          { name: 'account.deleted', value: 'DELETED_ACCOUNT' },
-					{ name: `profile.created`, value: 'CREATED_PROFILE' },
-					{ name: `profile.updated`, value: 'UPDATED_PROFILE' },
-					{ name: `profile.deleted`, value: 'DELETED_PROFILE' },
-					{ name: `order.created`, value: 'CREATED_ORDER' },
-					{ name: `order.updated`, value: 'UPDATED_ORDER' },
-					{ name: `order.deleted`, value: 'DELETED_ORDER' },
-					{ name: 'collect.created', value: 'CREATED_COLLECT' },
-					{ name: 'collect.updated', value: 'UPDATED_COLLECT' },
-					{ name: 'collect.deleted', value: 'DELETED_COLLECT' },
-					{ name: 'collect.confirmed', value: 'CONFIRMED_COLLECT' },
-					{ name: 'collect.rebuilt', value: 'REBUILT_COLLECT' },
-					{ name: 'collect.synchronized', value: 'SYNCHRONIZED_COLLECT' },
-					{ name: 'collect.cancelled', value: 'CANCELLED_COLLECT' },
-					{ name: 'parcel.created', value: 'CREATED_PARCEL' },
-					{ name: 'parceld.with_auto_collect', value: 'CREATED_WITH_AUTO_COLLECT_PARCEL' },
-					{ name: 'parcel.updated', value: 'UPDATED_PARCEL' },
-					{ name: 'parcel.deleted', value: 'DELETED_PARCEL' },
-					{ name: 'parcel.cancelled', value: 'CANCELLED_PARCEL' },
-					{ name: 'prescription.created', value: 'CREATED_PRESCRIPTION' },
-					{ name: 'prescription.updated', value: 'UPDATED_PRESCRIPTION' },
-					{ name: 'prescription.deleted', value: 'DELETED_PRESCRIPTION' },
-					{ name: 'vital.created', value: 'CREATED_VITALE' },
-					{ name: 'vital.updated', value: 'UPDATED_VITALE' },
-					{ name: 'vital.deleted', value: 'DELETED_VITALE' },
-					{ name: 'mutuel.created', value: 'CREATED_MUTUEL' },
-					{ name: 'mutuel.updated', value: 'UPDATED_MUTUEL' },
-					{ name: 'mutuel.deleted', value: 'DELETED_MUTUEL' },
-        ],
+				options: [
+					{
+						name: 'account.created',
+						value: 'CREATED_ACCOUNT',
+						default: true,
+					},
+					{
+						name: 'account.deleted',
+						value: 'DELETED_ACCOUNT',
+					},
+					{
+						name: 'account.updated',
+						value: 'UPDATED_ACCOUNT',
+					},
+					{
+						name: 'collect.cancelled',
+						value: 'CANCELLED_COLLECT',
+					},
+					{
+						name: 'collect.confirmed',
+						value: 'CONFIRMED_COLLECT',
+					},
+					{
+						name: 'collect.created',
+						value: 'CREATED_COLLECT',
+					},
+					{
+						name: 'collect.deleted',
+						value: 'DELETED_COLLECT',
+					},
+					{
+						name: 'collect.rebuilt',
+						value: 'REBUILT_COLLECT',
+					},
+					{
+						name: 'collect.synchronized',
+						value: 'SYNCHRONIZED_COLLECT',
+					},
+					{
+						name: 'collect.updated',
+						value: 'UPDATED_COLLECT',
+					},
+					{
+						name: 'mutuel.created',
+						value: 'CREATED_MUTUEL',
+					},
+					{
+						name: 'mutuel.deleted',
+						value: 'DELETED_MUTUEL',
+					},
+					{
+						name: 'mutuel.updated',
+						value: 'UPDATED_MUTUEL',
+					},
+					{
+						name: 'order.created',
+						value: 'CREATED_ORDER',
+					},
+					{
+						name: 'order.deleted',
+						value: 'DELETED_ORDER',
+					},
+					{
+						name: 'order.updated',
+						value: 'UPDATED_ORDER',
+					},
+					{
+						name: 'parcel.cancelled',
+						value: 'CANCELLED_PARCEL',
+					},
+					{
+						name: 'parcel.created',
+						value: 'CREATED_PARCEL',
+					},
+					{
+						name: 'parcel.deleted',
+						value: 'DELETED_PARCEL',
+					},
+					{
+						name: 'parcel.updated',
+						value: 'UPDATED_PARCEL',
+					},
+					{
+						name: 'parceld.with_auto_collect',
+						value: 'CREATED_WITH_AUTO_COLLECT_PARCEL',
+					},
+					{
+						name: 'prescription.created',
+						value: 'CREATED_PRESCRIPTION',
+					},
+					{
+						name: 'prescription.deleted',
+						value: 'DELETED_PRESCRIPTION',
+					},
+					{
+						name: 'prescription.updated',
+						value: 'UPDATED_PRESCRIPTION',
+					},
+					{
+						name: 'profile.created',
+						value: 'CREATED_PROFILE',
+					},
+					{
+						name: 'profile.deleted',
+						value: 'DELETED_PROFILE',
+					},
+					{
+						name: 'profile.updated',
+						value: 'UPDATED_PROFILE',
+					},
+					{
+						name: 'vital.created',
+						value: 'CREATED_VITALE',
+					},
+					{
+						name: 'vital.deleted',
+						value: 'DELETED_VITALE',
+					},
+					{
+						name: 'vital.updated',
+						value: 'UPDATED_VITALE',
+					},
+				],
 				required: true,
 				placeholder: 'account.created ...',
 				description: 'Events type to listen to',
@@ -156,27 +247,30 @@ export class MonOrdoTrigger implements INodeType {
 		default: {
 			async checkExists(this: IHookFunctions): Promise<boolean> {
 				const webhookData = this.getWorkflowStaticData('node');
-        const creds = await this.getCredentials('monOrdoCredentialsApi');
-				console.debug('checkExists', webhookData, creds)
+				const creds = await this.getCredentials('monOrdoCredentialsApi');
+				console.debug('checkExists', webhookData, creds);
 
 				if (!webhookData.webhookId) {
 					// No webhook id is set so no webhook can exist
 					return false;
 				}
-        
 
 				// Webhook got created before so check if it still exists
-				
+
 				try {
-					const wh = await getFirstWebhook({ id: webhookData.webhookId as string }, creds.url.toString(), creds.apiKey as string)
-          if (!wh) {
-            delete webhookData.webhookId;
+					const wh = await getFirstWebhook(
+						{ id: webhookData.webhookId as string },
+						creds.url.toString(),
+						creds.apiKey as string,
+					);
+					if (!wh) {
+						delete webhookData.webhookId;
 						delete webhookData.webhookEvents;
-            return false;
-          }
+						return false;
+					}
 				} catch (error) {
-          delete webhookData.webhookId;
-          delete webhookData.webhookEvents;
+					delete webhookData.webhookId;
+					delete webhookData.webhookEvents;
 					// Some error occured
 					throw error;
 				}
@@ -191,29 +285,28 @@ export class MonOrdoTrigger implements INodeType {
 			async create(this: IHookFunctions): Promise<boolean> {
 				const webhookUrl = this.getNodeWebhookUrl('default');
 
-				console.debug('create url', webhookUrl)
+				console.debug('create url', webhookUrl);
 
-        const creds = await this.getCredentials('monOrdoCredentialsApi');
+				const creds = await this.getCredentials('monOrdoCredentialsApi');
 
-        const listen = this.getNodeParameter('listen', []) as string[];
-				
-				
+				const listen = this.getNodeParameter('listen', []) as string[];
+
 				const body = {
 					name: `MonOrdo n8n webhook`,
-          listen,
+					listen,
 					request: {
 						url: webhookUrl as string,
-            headers: '{}'
-          }
+						headers: '{}',
+					},
 				};
-				
-				console.debug('create body', body)
+
+				console.debug('create body', body);
 				let responseData;
 				try {
-					responseData = await createWebhook(body, creds.url.toString(), creds.apiKey as string)
-					console.debug('createWebhook', responseData)
+					responseData = await createWebhook(body, creds.url.toString(), creds.apiKey as string);
+					console.debug('createWebhook', responseData);
 				} catch (error) {
-					console.debug('ERROR', error)
+					console.debug('ERROR', error);
 					throw new NodeApiError(this.getNode(), error);
 				}
 
@@ -233,12 +326,15 @@ export class MonOrdoTrigger implements INodeType {
 
 			async delete(this: IHookFunctions): Promise<boolean> {
 				const webhookData = this.getWorkflowStaticData('node');
-        const creds = await this.getCredentials('monOrdoCredentialsApi');
-
+				const creds = await this.getCredentials('monOrdoCredentialsApi');
 
 				if (webhookData.webhookId !== undefined) {
 					try {
-						await deleteWebhook(webhookData.webhookId as string, creds.url.toString(), creds.apiKey as string);
+						await deleteWebhook(
+							webhookData.webhookId as string,
+							creds.url.toString(),
+							creds.apiKey as string,
+						);
 					} catch (error) {
 						return false;
 					}
@@ -254,7 +350,7 @@ export class MonOrdoTrigger implements INodeType {
 		},
 	};
 
-  // @ts-ignore (because of request)
+	// @ts-ignore (because of request)
 	async webhook(this: IWebhookFunctions): Promise<IWebhookResponseData> {
 		const bodyData = this.getBodyData();
 

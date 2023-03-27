@@ -28,9 +28,9 @@ export class IntercomCredentialsApi implements ICredentialType {
       type: 'options',
       default: 'EU',
       options: [
-        { name: 'EU', value: 'https://api.eu.intercom.io/' },
-        { name: 'US', value: 'https://api.intercom.io/' },
-        { name: 'AUSTRALIA', value: 'https://api.au.intercom.io/' },
+        { name: 'EU', value: 'https://api.eu.intercom.io' },
+        { name: 'US', value: 'https://api.intercom.io' },
+        { name: 'AUSTRALIA', value: 'https://api.au.intercom.io' },
       ]
     },
     {
